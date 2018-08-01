@@ -14,7 +14,11 @@ namespace UnityDemoServer
 			while (true)
 			{
 				var clientconn = port.Accept();
+<<<<<<< HEAD
 				//ClientWork(new sunny.Sockets.Socket(clientconn));
+=======
+				new ClientStatusVariable(new sunny.Sockets.Socket(clientconn));
+>>>>>>> 05db290dd93fdfdefc437d525f2da08eb2224bd7
 			}
             Console.WriteLine("Hello World!");
         }
