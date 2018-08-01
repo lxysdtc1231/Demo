@@ -11,6 +11,7 @@ namespace UnityDemoServer
 		public ClientStatusVariable(sunny.Sockets.Socket conn)
 		{
 			this.conn = conn;
+			Work();
 		}
 		public readonly sunny.Sockets.Socket conn;
 		public Guid UserId;
