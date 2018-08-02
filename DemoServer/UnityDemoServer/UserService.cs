@@ -56,9 +56,7 @@ namespace UnityDemoServer
 				System.Runtime.InteropServices.Marshal.FreeHGlobal(buffer);
 			}
 		}
-<<<<<<< HEAD
        
-=======
 		public static async Task Register(ClientStatusVariable client)
 		{
 			//读取请求
@@ -115,7 +113,6 @@ namespace UnityDemoServer
 				System.Runtime.InteropServices.Marshal.FreeHGlobal(buffer);
 			}
 		}
->>>>>>> d949a35f1379c3d129ba1b87925aee157c9c5dd3
 		static unsafe (short namelen, short pwlen) GetLength(IntPtr buffer)
 		{
 			var b = (short*)buffer;
