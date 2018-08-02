@@ -9,6 +9,7 @@ namespace UnityDemoServer
 {
     class UserService
     {
+  
 		public static async Task Login(ClientStatusVariable client)
 		{
 			short namelen, pwlen;
@@ -53,16 +54,19 @@ namespace UnityDemoServer
 				System.Runtime.InteropServices.Marshal.FreeHGlobal(buffer);
 			}
 		}
+       
 		static unsafe (short namelen, short pwlen) GetLength(IntPtr buffer)
 		{
 			var b = (short*)buffer;
 			if (*b < 0 | *(b + 1) < 0) throw new Exception();
 			return (*b, *(b + 1));
 		}
+
 		static unsafe string GetString(IntPtr buffer, int length)
 		{
 			return Encoding.Unicode.GetString((byte*)buffer, length);
 		}
+
 		static unsafe void SetResult(IntPtr buffer, bool result)
 		{
 			*(byte*)buffer = 0x01;
