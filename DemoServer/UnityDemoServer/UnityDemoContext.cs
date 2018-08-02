@@ -15,7 +15,10 @@ namespace UnityDemoServer
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.HasAnnotation("Relational:DefaultSchema", "dbo");
-			modelBuilder.Entity<UserInfo>();
+			modelBuilder.Entity<UserInfo>(entity =>
+			{
+				entity.Property(x => x.Id).ValueGeneratedOnAdd();
+			});
 		}
 	}
 }

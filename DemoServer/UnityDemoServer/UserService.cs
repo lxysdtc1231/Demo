@@ -12,6 +12,7 @@ namespace UnityDemoServer
   
 		public static async Task Login(ClientStatusVariable client)
 		{
+			//读取请求
 			short namelen, pwlen;
 			var buffer = System.Runtime.InteropServices.Marshal.AllocHGlobal(4);
 			try
@@ -36,6 +37,7 @@ namespace UnityDemoServer
 			{
 				System.Runtime.InteropServices.Marshal.FreeHGlobal(buffer);
 			}
+			//处理
 			Guid id;
 			using (var scope = Config.CreateScope())
 			{
@@ -54,7 +56,66 @@ namespace UnityDemoServer
 				System.Runtime.InteropServices.Marshal.FreeHGlobal(buffer);
 			}
 		}
+<<<<<<< HEAD
        
+=======
+		public static async Task Register(ClientStatusVariable client)
+		{
+			//读取请求
+			short namelen, pwlen;
+			var buffer = System.Runtime.InteropServices.Marshal.AllocHGlobal(4);
+			try
+			{
+				if (!await client.conn.FullReceiveAsync(buffer, 4)) throw new Exception();
+				(namelen, pwlen) = GetLength(buffer);
+			}
+			finally
+			{
+				System.Runtime.InteropServices.Marshal.FreeHGlobal(buffer);
+			}
+			string name;
+			string pw;
+			buffer = System.Runtime.InteropServices.Marshal.AllocHGlobal(namelen + pwlen);
+			try
+			{
+				if (!await client.conn.FullReceiveAsync(buffer, namelen + pwlen)) throw new Exception();
+				name = GetString(buffer, namelen);
+				pw = GetString(IntPtr.Add(buffer, namelen), pwlen);
+			}
+			finally
+			{
+				System.Runtime.InteropServices.Marshal.FreeHGlobal(buffer);
+			}
+			//处理
+			if (client.UserId != Guid.Empty) throw new Exception("用户已登陆，不能注册");
+			bool r = false;
+			using (var scope = Config.CreateScope())
+			{
+				var db = scope.GetService<UnityDemoContext>();
+				db.UserInfo.Add(new DbEntity.UserInfo
+				{
+					PassWord = pw,
+					UserName = name,
+				});
+				try
+				{
+					await db.SaveChangesAsync();
+					r = true;
+				}
+				catch { }
+			}
+			buffer = System.Runtime.InteropServices.Marshal.AllocHGlobal(2);
+			try
+			{
+				SetResult(buffer, r);
+				if (!await client.conn.FullSendAsync(buffer, 2)) throw new Exception();
+			}
+			finally
+			{
+				System.Runtime.InteropServices.Marshal.FreeHGlobal(buffer);
+			}
+		}
+>>>>>>> d949a35f1379c3d129ba1b87925aee157c9c5dd3
 		static unsafe (short namelen, short pwlen) GetLength(IntPtr buffer)
 		{
 			var b = (short*)buffer;
