@@ -15,8 +15,10 @@ namespace UnityDemoServer
 			IServiceCollection collection = new ServiceCollection();
 			collection.AddEntityFrameworkSqlServer().AddDbContextPool<UnityDemoContext>(options =>
 			{
-				options.UseSqlServer("Data Source=40.73.103.179;Initial Catalog=UnityDemo;User ID=app_UnityDemo;Password=UAW2pxfUKuL9cLIZ");
-			});
+				//options.UseSqlServer("Data Source=40.73.103.179;Initial Catalog=UnityDemo;User ID=app_UnityDemo;Password=UAW2pxfUKuL9cLIZ");
+                options.UseSqlServer("Data Source=40.73.103.179;Initial Catalog=UnityDemo;User ID=dev_unity;Password=dev_unity123   ");
+                //   dev_unity123
+            });
 			services = collection.BuildServiceProvider();
 		}
 		public static IServiceScope CreateScope()
