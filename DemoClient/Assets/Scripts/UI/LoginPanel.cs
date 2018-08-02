@@ -54,8 +54,9 @@ public class LoginPanel : PanelBase
         }
         if (Login(idInput.text, pwInput.text) == true)
         {
+            Debug.Log("连接成功");
             //   PanelMgr.instance.OpenPanel<>("");
-            Close();
+          //  Close();
         }
         else
         {
@@ -94,7 +95,6 @@ public class LoginPanel : PanelBase
         if (0 != buffer[1])
         {
             return true;
-           
         }
           
         //如果密码错误则关闭连接

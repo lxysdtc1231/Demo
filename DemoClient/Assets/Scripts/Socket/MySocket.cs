@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MySocket : MonoBehaviour {
 
@@ -13,13 +14,16 @@ public class MySocket : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //打开登陆界面
-        //PanelMgr.instance.OpenPanel(LoginPanel)("");
+        PanelMgr.instance.OpenPanel<LoginPanel>("");
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
     #endregion
+
+  
 }
